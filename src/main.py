@@ -29,7 +29,8 @@ st.set_page_config(layout="wide")
 #format_yaxis va changer la notation scientifique pour ecriture decimale
 #on va s'en servir au moment d'afficher les valeurs dans la visualisation pour l'axis y
 def format_yaxis(x, _):
-    return f'{int(x)}'
+    #return f'{int(x)}'
+    return f'{format(float(x), ".3f")}'
 
 #on utilise le decorator @st.cache_data pour ne pas ecrire le fichier a chaque fois que la page change
 #si'on appele la fonction avec les memes parametres, il va l'executer seulement la 1ere fois
@@ -64,8 +65,6 @@ with st.sidebar:
 # PAGE PRINCIPALE
 #######################################     
 if file is not None:
-    sniffer = csv.Sniffer()
-    delimiter = sniffer.sniff(file.name).delimiter
     #Apercu des données avec la fonction head
     try:
         #on va setter la variable separator = None pour force pandas a trouver le separator lui meme
