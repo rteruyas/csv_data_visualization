@@ -9,6 +9,7 @@ from streamlit_option_menu import option_menu
 import pandas as pd
 import numpy as np
 import seaborn as sns
+import os
 
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MultipleLocator
@@ -38,8 +39,12 @@ if file is not None:
     #### Création d'une copie dans le serveur
     #La fonction file_uploader garde le fichier en memoire (RAM) pour l'utiliser au besoin 
     #J'aimerais garder une copie de chaque fichier traité dans le repertoire 'repo'
+    #Si le dossier data n'existe pas, on va le creer au moment de faire le 1er telechargement     
+    if not os.path.exists("../data"): 
+        os.makedirs("../data") 
+
     df.to_csv("../data" + "/" + file.name)
-    st.text(f'Une copie physique a été créée dans le serveur comme ./repo/{file.name}')  
+    st.text(f'Une copie physique a été créée dans le serveur comme ./data/{file.name}')  
 
     numeric_columns = df.select_dtypes(include=np.number).columns.tolist()
 
